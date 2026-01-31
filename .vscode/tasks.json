@@ -1,0 +1,26 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "dotnet",
+			"task": "watch EPSDemo.Server",
+			"file": "D:\\EPS_Demo\\src\\EPSDemo.Server\\EPSDemo.Server.csproj",
+			"problemMatcher": [],
+			"label": "dotnet: watch EPSDemo.Server"
+		},
+		{
+			"label": "build",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"${workspaceFolder}/src/EPSDemo.Server/EPSDemo.Server.csproj"
+			],
+			"problemMatcher": "$msCompile",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}

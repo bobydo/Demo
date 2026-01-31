@@ -1,0 +1,78 @@
+@page "/railcar-trips"
+@using Demo.Web.Models
+@using Demo.Web.Services
+@inject TripsService TripsService
+
+<h3>Railcar Trips</h3>
+
+@if (trips == null)
+{
+    <p>Loading...</p>
+}
+else if (!trips.Any())
+{
+    <p>No trips found.</p>
+}
+else
+{
+    <table class="table table-striped trips-table" style="table-layout: fixed; width: 100%;">
+        <colgroup>
+            <col class="trips-col-1" style="width: 13%; min-width: 120px;" />
+            <col class="trips-col-2" style="width: 13%; min-width: 120px;" />
+            <col class="trips-col-3" style="width: 13%; min-width: 120px;" />
+            <col class="trips-col-4" style="width: 13%; min-width: 120px;" />
+            <col class="trips-col-5" style="width: 16%; min-width: 140px;" />
+            <col class="trips-col-6" style="width: 16%; min-width: 140px;" />
+            <col class="trips-col-7" style="width: 16%; min-width: 100px;" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Equipment ID</th>
+                <th>Equipment Description</th>
+                <th>Origin City</th>
+                <th>Destination City</th>
+                <th>Start (UTC)</th>
+                <th>End (UTC)</th>
+                <th>Total Hours</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var trip in trips)
+            {
+                <tr>
+                    <td class="trips-col-1">@trip.EquipmentId</td>
+                    <td class="trips-col-2">@trip.EquipmentDescription</td>
+                    <td class="trips-col-3">@trip.OriginCityName</td>
+                    <td class="trips-col-4">@trip.DestinationCityName</td>
+                    <td class="trips-col-5">@trip.StartUtc</td>
+                    <td class="trips-col-6">@trip.EndUtc</td>
+                    <td class="trips-col-7">@trip.TotalTripHours</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+    <style>
+        .trips-table th,
+        .trips-table thead th,
+        .trips-table td {
+            text-align: left !important;
+            padding-left: 8px;
+        }
+        .trips-col-1 { background-color: #f8f9fa; }
+        .trips-col-2 { background-color: #e9f7ef; }
+        .trips-col-3 { background-color: #fef9e7; }
+        .trips-col-4 { background-color: #e8f8f5; }
+        .trips-col-5 { background-color: #f9ebea; }
+        .trips-col-6 { background-color: #f4ecf7; }
+        .trips-col-7 { background-color: #f7f9f9; }
+    </style>
+
+@code {
+    private List<Trip_DTO>? trips;
+
+    protected override async Task OnInitializedAsync()
+    {
+        trips = await TripsService.GetTripsAsync();
+    }
+}

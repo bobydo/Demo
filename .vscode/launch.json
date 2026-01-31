@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": ".NET Launch EPSDemo.Server",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/EPSDemo.Server/bin/Debug/net8.0/EPSDemo.Server.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/EPSDemo.Server",
+            "env": {
+                "DATA_DIR": "${workspaceFolder}/Data",
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        }
+    ]
+}
