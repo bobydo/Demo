@@ -1,7 +1,35 @@
-# EPS Demo Architecture
+# Implemetaion, Discussion and TODO comments
 
+## Time Spent
+It seemed reasonable to expect this could be done in 10 hours, but it ended up taking about 13 hours.
+
+## Requirements align up
+- Built a Blazor WebAssembly SPA with a server-side ASP.NET Core API; all data access handled via EF Core on the server.
+- Designed a layered solution (Web, Server, Application, Domain, Infrastructure) to separate UI, trip-processing logic, and - persistence.
+- Implemented a Railcar Trips page that uploads equipment_events.csv and triggers backend processing.
+- Displayed processed trips in a data grid; optional drill-down shows ordered events for a selected trip.
+- Used SQLite + EF Core migrations for fast demo setup, with design intentionally portable to SQL Server/Azure.
+- Random checking of the final trip grid showed no overlapping times.
+- 
+
+## Discussion
+- Should overlapping trips for the same equipment ever occur, or always sequential?
+- Should partial trips without an end event be stored or ignored?
+- Trips are currently generated (Demo.Server/Services/TripService.cs) by LINQ and cached rather than persisted as a parent entity with calculated fields (origin, destination, start/end UTC, total hours) and related events.
+- I loaded csv data at server startup for simplicity, noting that alternatives include EF migration-based seeding (hard-coded data) or a proper ETL loader, with the trade-off that startup loading requires checking for existing records each time.
+- Could keep DTOs in sync by either sharing a .NET library/project between backend and frontend, using NSwag/OpenAPI code generation to regenerate DTOs on schema changes, or manually copying files (least time for demo).
+- Added logs on the server side, to cache backend process, exceptions etc, this could be big topic
+
+
+# TODO comments
+- Centralized the business rules using FluentValidation for the frontend and applied EF migrations for the database, keeping validation consistent and maintainable across the application.
+- Improve UI/UX for trip-event drilldown (pagination, sorting).
+- Wrote one unit test without diving too deep — just to get something in place for now.
+- More checks on the final grid list — did a random check and didn’t find any overlapping times.
+- Set up different environment configs for deployment — using Development as an example
+
+# Demo Architecture
 ## Structure
-
 ```
 Demo/
 │
@@ -11,6 +39,7 @@ Demo/
 │   ├── Demo.Domain/             # Domain entities, interfaces, logic
 │   ├── Demo.Infrastructure/     # EF Core, data access, CSV seeding
 │   └── Demo.Tests/              # Unit tests
+│   └── Demo.Server/             # MVC API
 │
 ├── Data/                           # CSV files (seed data)
 └── README.md
