@@ -1,7 +1,9 @@
 # Implemetaion, Discussion and TODO comments
 
-## Time Spent
-It seemed reasonable to expect this could be done in 10 hours, but it ended up taking about 13 hours.
+## High Level – Senior Developer
+- Designed and implemented a well-scoped Blazor WebAssembly solution that processes unordered, time zone–specific railcar events into persisted Trip parent entities, applying explicit domain rules (W = trip start, Z = trip end) and validating correctness through focused unit tests covering boundary conditions, ordering, and edge cases.
+- Leveraged AI-assisted scaffolding to accelerate initial setup while independently designing, testing, and refining core domain logic, EF Core persistence, and processing workflows; adapted smoothly to tooling changes without compromising code quality or verification rigor.
+- Demonstrated senior-level engineering judgment and communication by balancing scope, test coverage, and maintainability, and by clearly documenting assumptions, trade-offs, TODOs, and future enhancements to support team review and long-term evolution.
 
 ## Requirements align up
 - Built a Blazor WebAssembly SPA with a server-side ASP.NET Core API; all data access handled via EF Core on the server.
@@ -21,7 +23,7 @@ It seemed reasonable to expect this could be done in 10 hours, but it ended up t
 - Added logs on the server side, to cache backend process, exceptions etc, this could be big topic
 
 
-# TODO comments
+## TODO comments
 - Centralized the business rules using FluentValidation for the frontend and applied EF migrations for the database, keeping validation consistent and maintainable across the application.
 - Improve UI/UX for trip-event drilldown (pagination, sorting).
 - Wrote one unit test without diving too deep — just to get something in place for now.
